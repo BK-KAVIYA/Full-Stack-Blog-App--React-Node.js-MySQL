@@ -25,11 +25,11 @@ export default function Navbar() {
           <Link className='link' to='/?cat=food'>
             <h6>FOOD</h6>
           </Link>
-          <span>KA VI YA</span>
-          <span>Logout</span>
+          <span className='links'>KA VI YA</span>
+          <span className='links'>Logout</span>
 
-          <span className='write'>
-            <Link className='link' to="/write">Write</Link>
+          <span className='links'>
+            <Link className='write' to="/write">Write</Link>
           </span>
         </div>
       </div>  

@@ -11,6 +11,8 @@ $lightGreen:#b9e7e7;
             color: inherit;
             cursor: pointer;
         }
+
+    
         //Login and registre
         .auth{
             display: flex;
@@ -73,6 +75,8 @@ $lightGreen:#b9e7e7;
                 justify-content: space-between;
                 align-items: center;
                 padding: 10px 0px;
+                border-bottom: 1px solid lightgray;
+                padding-right: 25px;
                 
                 .logo{
                     display: flex;
@@ -90,7 +94,6 @@ $lightGreen:#b9e7e7;
                     display: flex;
                     gap: 20px;
                     cursor: pointer;
-
                     h6{
                         font-size: 16px;
                         font-weight: 300;
@@ -102,12 +105,24 @@ $lightGreen:#b9e7e7;
                     }
 
                     .write{
-                        .link{
-                            display: flex;
-                            align-items: center;
-                            gap: 5px;
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        background-color: $lightGreen;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        justify-content: center;
+                        font-weight: 300;
+                        border: 1px solid white;
+                        &:hover{
+                            background-color: white;
+                            color: teal;
+                            border: 1px solid teal;
                         }
-                    }
+                }
+      
                 }
    
             }

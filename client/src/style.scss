@@ -1,10 +1,116 @@
+$lightGreen:#b9e7e7;
+
 .app{
+    display: flex;
+    justify-content: center;
     .container{
+        width: 1024px;
+
+        .link{
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
         //Login and registre
         .auth{
             display: flex;
             align-items: center;
+            flex-direction: column;
             justify-content: center;
+            height: 100vh;
+            background-color: $lightGreen;
+
+            h1{
+                font-size: 2rem;
+                color: teal;
+                margin-bottom: 0.8rem;
+            }
+
+            form{
+                display: flex;
+                flex-direction: column;
+                padding: 30px;
+                border-radius: 20px;
+                background-color: white;
+                width: 200px;
+                gap: 20px;
+
+                input{
+                    padding: 10px;
+                    border: 1px solid teal;
+                    border-radius: 5px;
+                }
+
+                button{
+                    padding: 10px;
+                    border: 1px solid teal;
+                    border-radius: 5px;
+                    background-color: teal;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                p{
+                    font-size: 14px;
+                    color: red;
+                    text-align: center;
+                }
+
+                span{
+                    font-size: 18px;
+                    text-align: center;
+                    color: salmon;
+                }
+            }
+
+        
+        }
+
+        //Nav Bar
+        .navbar{
+            .container{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0px;
+                
+                .logo{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                    img{
+                        width: 120px;
+                        border-radius: 50%;
+                    
+                    }
+                }
+
+                .links{
+                    display: flex;
+                    gap: 20px;
+                    cursor: pointer;
+
+                    h6{
+                        font-size: 16px;
+                        font-weight: 300;
+                    }
+
+                    span{
+                        cursor: pointer;
+                        align-items: center;
+                    }
+
+                    .write{
+                        .link{
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                        }
+                    }
+                }
+   
+            }
         }
     }
 }

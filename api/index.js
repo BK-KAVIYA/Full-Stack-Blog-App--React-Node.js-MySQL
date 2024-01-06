@@ -6,14 +6,16 @@ import cookieParser from 'cookie-parser';
 
 const app = express()
 
+
 app.use(express.json())
-app.use(cookieParser)
+//app.use(cookieParser)
 app.use("/api/posts", postRoure)
 app.use("/api/user", userRoure)
 app.use("/api/auth", authRoure)
 
 
 
-app.listen(8800, () => {
-  console.log('Server is running on port 8800');
+app.listen(5000, () => {
+  console.log('Server is running on port 5000');
 });
+

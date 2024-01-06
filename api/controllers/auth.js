@@ -50,14 +50,17 @@ export const login = (req, res) => {
         }
         //create token
         const token = jwt.sign({id:data[0].id},"jwtkey");
-        const {password, ...info} = data[0];
+        const {password, ...other} = data[0];
         res.cookie("access_token",token,{
-            httpOnly:true,
-        }).status(200).json(info)
+            httpOnly:true
+        }).status(200).json(other)
 
     })
 }
 
 export const logout = (req, res) => {
-    console.log("logout")
+    res.clearCookie("access_token",{
+        sameSite:"none",
+        secure:true
+    }).status(200).json("Logged out")
 }

@@ -1,37 +1,49 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Edite from '../img/edit.png'
 import Delete from '../img/delete.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu } from '../component/Menu'
+import axios from 'axios'
+import moment from 'moment'
+import { AuthContext } from '../context/authContext'
 
 export default function Single() {
+  const [post, setPost] = useState({});
+
+  const location=useLocation();
+  const postId=location.pathname.split('/')[2]
+  const curentUser=useContext(AuthContext)
+
+  useEffect(() => {
+      const fetchPosts = async () => {
+          try {
+              const res = await axios.get(`/posts/${postId}`);
+              setPost(res.data);
+          } catch (err) {
+              console.log(err);
+          }
+        };
+        fetchPosts();
+    },[postId]);
   return (
     <div className="single">
       <div className="content">
-        <img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" />
+        <img src={post?.img} alt="" />
         <div className="user">
           <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" alt=""/>
           <div className="info">
-            <span className="username">John Doe</span>
-            <p className="date">5 minutes ago</p>
+            <span className="username">{post.username}</span>
+            <p className="date">Posted {moment(post.date).fromNow()}</p>
           </div>
-          <div className="edite">
+          {curentUser.username === post.username && <div className="edite">
             <Link to='/write?edite=2'>
               <img src={Edite} alt="" />
             </Link>
             <img src={Delete} alt="" />
-          </div>
+          </div>}
         </div>
-        <h1 className="title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, voluptatum.</h1>
-        <p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto similique velit, minima dolorem quasi tenetur sint dignissimos temporibus quibusdam nemo blanditiis hic iure, aut, doloribus rerum molestiae tempore placeat.</p>
-          <p>Deleniti, maxime amet quo nam velit distinctio praesentium. Cum officia tenetur incidunt itaque doloremque. Ex, possimus similique repudiandae obcaecati eligendi suscipit dolore itaque fugit consectetur quibusdam in facere libero!</p>
-          <p>Nihil maiores harum maxime voluptate vitae quidem temporibus repudiandae quis, corporis iure quia quos veniam commodi, iste consequatur delectus alias pariatur nam ex animi. Sequi assumenda cumque sed! Possimus. 
-          Nihil maiores harum maxime voluptate vitae quidem temporibus repudiandae quis, corporis iure quia quos veniam commodi, iste consequatur delectus alias pariatur nam ex animi. Sequi assumenda cumque sed! Possimus.
-          </p>
-          <p>Perferendis excepturi aut libero. Deserunt numquam debitis voluptatum nihil corporis tempora quam, cum, architecto minima sunt rerum vel, eum suscipit aperiam quas nostrum. Ratione eligendi voluptatem in odio magni?</p>
-          <p>Iure vitae fugit earum libero illum, sapiente minima, rem sequi eum repellendus quia sit exercitationem quas eius magnam reiciendis qui dolores! Harum quod, accusantium facere officiis eum officia animi!</p>
-        </p>
+        <h1 className="title">{post.title}</h1>
+        {post.desc}
         </div>
       <Menu />
     </div>

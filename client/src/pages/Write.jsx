@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React,{useState} from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -8,8 +9,35 @@ export default function Write() {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState('');
 
-  const handleSubmit=()=>{
+
+  const upload=async()=>{
+    try {
+      const formData=new FormData();
+    formData.append('file',file);
+      const res=await axios.post('/upload',formData);
+      return res.data;
+    } catch (err) { 
+      console.log(err);
+    }
+  }
+
+
+  const handleSubmit=(e)=>{
     e.preventDefault();
+    const imgUrl=upload();
+
+    try {
+      const newPost={
+        username:'test',
+        title,
+        desc:value,
+        img:imgUrl,
+        cat
+      }
+      axios.post('/posts',newPost);
+    } catch (err) {
+      console.log(err);
+    }
   }
   return (
     <div className='add'>
@@ -54,7 +82,7 @@ export default function Write() {
             <label htmlFor="design">Design</label>
           </div>
           <div className="cat">
-            <input type="radio" name="cat" value="food" id="food"/>
+            <input type="radio" name="cat" value="food" id="food" onChange={e=>setCat(e.target.value)}/>
             <label htmlFor="food">Food</label>
           </div>
         </div>

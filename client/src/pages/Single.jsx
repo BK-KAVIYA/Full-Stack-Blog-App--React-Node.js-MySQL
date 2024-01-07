@@ -12,7 +12,7 @@ export default function Single() {
 
   const location=useLocation();
   const postId=location.pathname.split('/')[2]
-  const curentUser=useContext(AuthContext)
+  const curentUser=useContext(AuthContext).curentUser
 
   useEffect(() => {
       const fetchPosts = async () => {

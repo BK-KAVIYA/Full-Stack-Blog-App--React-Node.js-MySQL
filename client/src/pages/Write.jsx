@@ -3,10 +3,11 @@ import moment from 'moment';
 import React,{useState} from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Write() {
   const state=useLocation().state;
+  const navigate=useNavigate();
   const [value, setValue] = useState(state?.desc || "");
   const [title, setTitle] = useState(state?.title || "");
   const [file, setFile] = useState(null);
@@ -32,6 +33,7 @@ export default function Write() {
     try {
       state ? axios.put(`/posts/${state.id}`,{title,desc:value,cat,img:file ? imgUrl : ""}) 
       : axios.post('/posts',{title,desc:value,cat,img:file ? imgUrl : "", date:moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')});
+      navigate('/');
     } catch (err) {
       console.log(err);
     }

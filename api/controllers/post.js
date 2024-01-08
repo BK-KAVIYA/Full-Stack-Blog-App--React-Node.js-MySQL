@@ -30,7 +30,7 @@ export const addPost = (req, res) => {
 
     jwt.verify(token, "jwtkey", (err, userInfo) => {
         if(err) return res.status(401).json("Not Unauthenticated");
-        const q="INSERT INTO posts (title, desc, img, cat, date, uid) VALUES (?)";
+        const q="INSERT INTO posts (title, `desc`, img, cat, date, uid) VALUES (?)";
         const values=[req.body.title,req.body.desc,req.body.img,req.body.cat, req.body.date, userInfo.id];
         db.query(q,[values], (err, result) => {
             if (err) {
@@ -65,7 +65,7 @@ export const updatePost = (req, res) => {
     jwt.verify(token, "jwtkey", (err, userInfo) => {
         if(err) return res.status(401).json("Not Unauthenticated");
         const postId=req.params.id;
-        const q="UPDATE posts SET title=?, desc=?, img=?, cat=? WHERE id=? AND uid=?";
+        const q="UPDATE posts SET title=?, `desc`=?, img=?, cat=? WHERE id=? AND uid=?";
         const values=[req.body.title,req.body.desc,req.body.img,req.body.cat, userInfo.id];
         db.query(q,[...values,postId,userInfo.id], (err, result) => {
             if (err) {

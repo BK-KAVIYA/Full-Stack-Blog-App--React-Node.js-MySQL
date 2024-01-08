@@ -12,6 +12,7 @@ export default function Home() {
           try {
               const res = await axios.get(`/posts${cat}`);
               setPosts(res.data);
+              
           } catch (err) {
               console.log(err);
           }
@@ -47,7 +48,7 @@ export default function Home() {
 
   const getText=(html)=>{
     const doc=new DOMParser().parseFromString(html,'text/html');
-    return doc.body.textContent || "";
+    return doc.body.textContent;
   }
   return (
     <div className="home">

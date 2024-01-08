@@ -38,7 +38,7 @@ export default function Single() {
   return (
     <div className="single">
       <div className="content">
-        <img src={post?.img} alt="" />
+        <img src={`../upload/${post?.img}`} alt="" />
         <div className="user">
           { post.userImage &&
             <img src={post?.userImage} alt=""/>

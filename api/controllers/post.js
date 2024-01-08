@@ -15,7 +15,7 @@ export const getPosts = (req, res) => {
 
 }
 export const getPost = (req, res) => {
-    const q="SELECT u.username, p.title, p.desc, p.img, u.img as userImage, p.cat, p.date FROM users u JOIN posts p ON u.id = p.uid where p.id=?";
+    const q="SELECT p.id, u.username, p.title, p.desc, p.img, u.img as userImage, p.cat, p.date FROM users u JOIN posts p ON u.id = p.uid where p.id=?";
     db.query(q,[req.params.id], (err, result) => {
         if (err) {
             return res.status(401).json(err);
@@ -25,6 +25,21 @@ export const getPost = (req, res) => {
     });
 }
 export const addPost = (req, res) => {
+    const token=req.cookies.access_token;
+    if(!token) return res.status(401).json("Not Unauthenticated");
+
+    jwt.verify(token, "jwtkey", (err, userInfo) => {
+        if(err) return res.status(401).json("Not Unauthenticated");
+        const q="INSERT INTO posts (title, desc, img, cat, date, uid) VALUES (?)";
+        const values=[req.body.title,req.body.desc,req.body.img,req.body.cat, req.body.date, userInfo.id];
+        db.query(q,[values], (err, result) => {
+            if (err) {
+                return res.status(401).json(err);
+            } else {
+                return res.status(200).json("post has been added!");
+            }
+        });
+    });
     
 }
 export const deletePost = (req, res) => {
@@ -44,5 +59,20 @@ export const deletePost = (req, res) => {
     
 }
 export const updatePost = (req, res) => {
-    
+    const token=req.cookies.access_token;
+    if(!token) return res.status(401).json("Not Unauthenticated");
+
+    jwt.verify(token, "jwtkey", (err, userInfo) => {
+        if(err) return res.status(401).json("Not Unauthenticated");
+        const postId=req.params.id;
+        const q="UPDATE posts SET title=?, desc=?, img=?, cat=? WHERE id=? AND uid=?";
+        const values=[req.body.title,req.body.desc,req.body.img,req.body.cat, userInfo.id];
+        db.query(q,[...values,postId,userInfo.id], (err, result) => {
+            if (err) {
+                return res.status(401).json(err);
+            } else {
+                return res.status(200).json("post has been updated!");
+            }
+        });
+    });
 }

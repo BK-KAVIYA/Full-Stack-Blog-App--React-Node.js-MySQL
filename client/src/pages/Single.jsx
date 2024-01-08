@@ -48,7 +48,7 @@ export default function Single() {
             <p className="date">Posted {moment(post.date).fromNow()}</p>
           </div>
           {curentUser?.username === post.username && <div className="edite">
-            <Link to='/write?edite=2'>
+            <Link to='/write?edite=2' state={post}>
               <img src={Edite} alt="" />
             </Link>
             <img onClick={handleDelete} src={Delete} alt="" />
